@@ -1,4 +1,5 @@
 import Mock from "mockjs"
+// 模拟接口延时响应
 Mock.setup({
     timeout: "200-600"
 })

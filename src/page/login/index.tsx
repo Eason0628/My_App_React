@@ -9,10 +9,14 @@ import { login } from '../../api/users';
 import { setToken } from '../../store/login/authSlice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { replace, useNavigate } from "react-router-dom";
+
 function Login() {
   // AntD Form getFromInstance
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const handleLogin = () => {
     form.validateFields().then(async (res) => {
@@ -21,6 +25,8 @@ function Login() {
       console.log('Login success:', token);
       setIsLoading(false)
       dispatch(setToken(token));
+      // for redirect to home page
+      navigate("/",{replace:true});
     }).catch((err) => {
       console.log('Login failed:', err);
       setIsLoading(false)
