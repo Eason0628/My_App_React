@@ -5,29 +5,20 @@ import './index.scss'
 
 import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useEffect } from 'react';
-import http from '../../util/http'
+import { login } from '../../api/users';
+import { setToken } from '../../store/login/authSlice';
+import { useDispatch } from 'react-redux';
+
 function Login() {
-
-  useEffect(() => {
-    http({
-      method: 'post',
-      data: {
-        username: 'admina',
-        password: 'admin123123',
-      }
-    }).then((res) => {
-      console.log('Login successful:', res);
-    }).catch((err) => {
-      console.log('Login failed:', err);
-    })
-  }, []);
-
   // AntD Form getFromInstance
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
   const handleLogin = () => {
-    form.validateFields().then((values) => {
-      console.log('Login successful:', values);
+    form.validateFields().then(async (res) => {
+      const { data: { token } } = await login(res);
+      console.log('Login success:', token);
+      dispatch(setToken(token));
     }).catch((err) => {
       console.log('Login failed:', err);
     })
@@ -47,14 +38,14 @@ function Login() {
           <Form form={form}>
             <Form.Item
               name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+              rules={[{ required: true, message: 'Please input your username!' }]}
             >
               <Input placeholder="Please input your username" prefix={<UserOutlined />} />
             </Form.Item>
 
             <Form.Item
               name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+              rules={[{ required: true, message: 'Please input your password!' }]}
             >
               <Input.Password placeholder="Please input your password" prefix={<LockOutlined />} />
             </Form.Item>
