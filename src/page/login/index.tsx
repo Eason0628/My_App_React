@@ -8,19 +8,22 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { login } from '../../api/users';
 import { setToken } from '../../store/login/authSlice';
 import { useDispatch } from 'react-redux';
-
+import { useState } from 'react';
 function Login() {
   // AntD Form getFromInstance
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const handleLogin = () => {
     form.validateFields().then(async (res) => {
+      setIsLoading(true)
       const { data: { token } } = await login(res);
       console.log('Login success:', token);
+      setIsLoading(false)
       dispatch(setToken(token));
     }).catch((err) => {
       console.log('Login failed:', err);
+      setIsLoading(false)
     })
   };
 
@@ -51,7 +54,8 @@ function Login() {
             </Form.Item>
 
             <Form.Item label={null}>
-              <Button type="primary" htmlType="submit" style={{ width: '100%' }} onClick={handleLogin}>
+              <Button type="primary" htmlType="submit" style={{ width: '100%' }} onClick={handleLogin}
+                loading={isLoading}>
                 Login
               </Button>
             </Form.Item>
