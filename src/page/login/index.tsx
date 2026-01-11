@@ -9,7 +9,7 @@ import { login } from '../../api/users';
 import { setToken } from '../../store/login/authSlice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   // AntD Form getFromInstance
@@ -26,7 +26,7 @@ function Login() {
       setIsLoading(false)
       dispatch(setToken(token));
       // for redirect to home page
-      navigate("/",{replace:true});
+      navigate("/", { replace: true });
     }).catch((err) => {
       console.log('Login failed:', err);
       setIsLoading(false)
