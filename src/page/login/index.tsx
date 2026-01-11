@@ -21,7 +21,8 @@ function Login() {
   const handleLogin = () => {
     form.validateFields().then(async (res) => {
       setIsLoading(true)
-      const { data: { token } } = await login(res);
+      const { data: { token,username } } = await login(res);
+      sessionStorage.setItem("username",username)
       console.log('Login success:', token);
       setIsLoading(false)
       dispatch(setToken(token));
