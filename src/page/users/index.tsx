@@ -1,5 +1,3 @@
-import { Divider } from "antd";
-
 function Users(){
     return (
         <div>
@@ -7,3 +5,4 @@ function Users(){
         </div>
     )
 }
+export default Users;

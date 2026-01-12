@@ -1,9 +1,5 @@
-function AddUser() {
-    return (
-        <div>
-            Add User
-        </div>
-    )
-
+function AddUser(){
+    return <div>我是新增租户</div>
 }
-export default AddUser;
+
+export default AddUser
