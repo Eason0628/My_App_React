@@ -5,7 +5,7 @@ import { generatesRoutes } from "./util/generatesRoutes";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createBrowserRouter } from "react-router-dom";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 function App() {
   const { menuList } = useSelector((state: any) => state.authSlice);
   const [routes, setRoutes] = useState<any>(null);
@@ -26,7 +26,10 @@ function App() {
 
   if (routes) {
     return (
-      <RouterProvider router={routes} />
+      // Suspense作用是当子组件是懒加载时，显示fallback中的内容，当子组件加载完成后，显示子组件
+      <Suspense fallback={<div>loading</div>}>
+        <RouterProvider router={routes} />
+      </Suspense>
     );
   } else {
     return <div>loading</div>;
