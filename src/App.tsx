@@ -19,7 +19,6 @@ function App() {
       routes[0].children[0].index = true
     }
 
-    // console.log('Routes is initialized', routes)
     const browserRouters = createBrowserRouter(routes);
     setRoutes(browserRouters);
   }, [menuList])
