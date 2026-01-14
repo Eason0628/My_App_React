@@ -3,6 +3,7 @@ import { Layout, theme } from 'antd';
 import NavLeft from '../../components/navLeft';
 import AppBreadCrumb from '../../components/breadCrumb/appBreadCrumb';
 import AppHeader from '../../components/header';
+import { Outlet } from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -25,16 +26,7 @@ function Home() {
 
         <Content style={{ margin: '0 16px' }}>
           <AppBreadCrumb />
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            Bill is a cat.
-          </div>
+          <Outlet />   {/* 路由出口，用于渲染子路由组件 */}
         </Content>
 
         <Footer style={{ textAlign: 'center' }}>
