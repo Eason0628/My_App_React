@@ -7,6 +7,7 @@ import logo from '../../assets/logo.png'
 import "./index.scss"
 import { setMenus } from '../../store/login/authSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 interface MenuItemFromData {
@@ -17,6 +18,8 @@ interface MenuItemFromData {
 }
 
 function NavLeft() {
+  const navigate = useNavigate()
+
   const dispatch = useDispatch()
   const [menu, setMenu] = useState<MenuItem[]>([])
   useEffect(() => {
@@ -38,6 +41,9 @@ function NavLeft() {
       children: item.children ? mapMenuItems(item.children) : null
     }))
   }
+  function handleClick({ key }: { key: string }) {
+    navigate(key)
+  }
 
 
   return (
@@ -51,6 +57,7 @@ function NavLeft() {
         mode="inline"
         theme="dark"
         items={menu}
+        onClick={handleClick}
       />
     </div>
   );
