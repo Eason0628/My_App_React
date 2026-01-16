@@ -8,6 +8,7 @@ import "./index.scss"
 import { setMenus } from '../../store/login/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 type MenuItem = Required<MenuProps>['items'][number];
 interface MenuItemFromData {
@@ -18,18 +19,17 @@ interface MenuItemFromData {
 }
 
 function NavLeft() {
+  // 根组件App存放路由数据到Redux
+  const { menuList } = useSelector((state: any) => state.authSlice);
   const navigate = useNavigate()
-
-  const dispatch = useDispatch()
   const [menu, setMenu] = useState<MenuItem[]>([])
+  
   useEffect(() => {
     configMenu()
-  }, [])
+  }, [menuList])
 
   async function configMenu() {
-    const { data } = await getMenu()
-    dispatch(setMenus(data))
-    const menuData = mapMenuItems(data)
+    const menuData = mapMenuItems(menuList)
     setMenu(menuData)
   }
 

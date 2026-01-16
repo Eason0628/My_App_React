@@ -3,33 +3,34 @@ import { initRoutes } from "./router";
 import './mock'
 import { generatesRoutes } from "./util/generatesRoutes";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { createBrowserRouter } from "react-router-dom";
 import { useState, Suspense } from "react";
 import { getMenu } from "./api/users";
 import { setMenus } from './store/login/authSlice';
 import { useDispatch } from 'react-redux';
+import { useSelector } from "react-redux";
 function App() {
-  const { menuList } = useSelector((state: any) => state.authSlice);
   const [routes, setRoutes] = useState<any>(null);
   const dispatch = useDispatch();
-
+ const { token } = useSelector((state: any) => state.authSlice);
   useEffect(() => {
-    async function loadData() {
-      // sessionStorage.setItem("token", "mocktoken123456admin");
+    async function loadMenuData() {
       const { data } = await getMenu();
-      console.log('getMenu', data)
-      dispatch(setMenus(data))
-      const routes = generatesRoutes(data)//动态创建的路由表
-      const myRoutes = [...initRoutes];
-      myRoutes[0].children = routes;
-      myRoutes[0].children[0].index = true;
-
-      const routeList = createBrowserRouter(myRoutes)
-      setRoutes(routeList);
+      if (data.length) {
+        dispatch(setMenus(data))
+        const routes = generatesRoutes(data)  //后台数据->转成路由数据
+        const myRoutes = [...initRoutes];
+        myRoutes[0].children = routes;
+        myRoutes[0].children[0].index = true;
+        const routeList = createBrowserRouter(myRoutes)
+        setRoutes(routeList);
+      } else {
+        const routeList = createBrowserRouter(initRoutes)
+        setRoutes(routeList);
+      }
     }
-    loadData()
-  }, [])
+    loadMenuData()
+  }, [token])
 
   if (routes) {
     return (
