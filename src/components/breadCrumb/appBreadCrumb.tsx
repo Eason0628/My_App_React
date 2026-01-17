@@ -1,6 +1,39 @@
+import { useLocation } from "react-router-dom"
+import { useSelector } from "react-redux";
+import { Breadcrumb } from 'antd';
+interface MenuItem {
+  key: string;
+  label: string;
+  children?: MenuItem[]
+}
+
+// ["物业管理","楼宇管理"]
+function findBreadCrumbPath(path: string, menuItems: MenuItem[]): string[] {
+  const pathSegments: string[] = [];
+  function findPath(currentPath: string, items: MenuItem[]) {
+    for (let item of items) {
+      if (currentPath.startsWith(item.key)) {
+        pathSegments.push(item.label)
+        if (item.children) {
+          findPath(currentPath, item.children)
+        }
+        break;
+      }
+    }
+    return pathSegments;
+  }
+  return findPath(path, menuItems);
+}
+
+
+// [{label:"物业管理"},{label:"楼宇管理"}] 
 function AppBreadCrumb() {
+  const location = useLocation();
+  const { menuList } = useSelector((state: any) => state.authSlice)
+  const breadCrumbPaths = findBreadCrumbPath(location.pathname, menuList).map((item) => ({ title: item }))
+  console.log(breadCrumbPaths)
   return (
-    <div>This is AppBreadCrumb!</div>
+    <Breadcrumb items={breadCrumbPaths} className="mt mb" />
   );
 }
 export default AppBreadCrumb;

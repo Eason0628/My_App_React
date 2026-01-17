@@ -3,7 +3,7 @@ import { Dropdown, Space } from 'antd';
 import { UserOutlined, PoweroffOutlined, DownOutlined } from '@ant-design/icons';
 import {removeToken} from '../../store/login/authSlice';
 import { useDispatch } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 const items: MenuProps['items'] = [
   {
     key: '1',
@@ -28,10 +28,11 @@ const items: MenuProps['items'] = [
 
 function AppHeader() {
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate()
   const onClick: MenuProps['onClick'] = ({ key }) => {
     if (key == "1") {
       //跳转到个人中心
+      navigate("/personal")
     } else {
       dispatch(removeToken());
       sessionStorage.clear()

@@ -5,11 +5,9 @@ import icons from './iconList';
 import type { MenuProps } from 'antd';
 import logo from '../../assets/logo.png'
 import "./index.scss"
-import { setMenus } from '../../store/login/authSlice';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-
+import { useLocation } from 'react-router-dom';
 type MenuItem = Required<MenuProps>['items'][number];
 interface MenuItemFromData {
   key: string;
@@ -23,7 +21,9 @@ function NavLeft() {
   const { menuList } = useSelector((state: any) => state.authSlice);
   const navigate = useNavigate()
   const [menu, setMenu] = useState<MenuItem[]>([])
-  
+  const location = useLocation()
+  const selectedKey= location.pathname
+
   useEffect(() => {
     configMenu()
   }, [menuList])
@@ -53,11 +53,12 @@ function NavLeft() {
         <h1>Intelegent Park</h1>
       </div>
       <Menu
-        defaultOpenKeys={['/dashboard']}
+        defaultSelectedKeys={['/dashboard']}
         mode="inline"
         theme="dark"
         items={menu}
         onClick={handleClick}
+        selectedKeys={[selectedKey]}
       />
     </div>
   );
