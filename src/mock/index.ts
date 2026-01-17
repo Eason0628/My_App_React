@@ -465,6 +465,7 @@ Mock.mock("https://www.demo.com/userList","post",(options:any)=>{
     return {
         code:200,
         message:"成功",
+        // Mock.mock还可以用来生成数据 方法里面包裹的是接口返回值，
         data:Mock.mock({
             [`list|${pageSize}`]:[
                 {
