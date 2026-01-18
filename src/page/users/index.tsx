@@ -80,6 +80,7 @@ function Users() {
       loadData();
      
     }
+    
     const batchDelete=async ()=>{
         const {data}=await batchDeleteUser(selectedRowKeys)
         message.success(data);
@@ -234,5 +235,5 @@ function Users() {
 }
 
 const MyUserForm=React.memo(UserForm)
-export default Users
+export default Users;
 

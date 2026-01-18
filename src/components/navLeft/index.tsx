@@ -1,5 +1,4 @@
 import { Menu } from 'antd';
-import { getMenu } from '../../api/users';
 import { useEffect, useState } from 'react';
 import icons from './iconList';
 import type { MenuProps } from 'antd';

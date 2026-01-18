@@ -30,6 +30,7 @@ function App() {
       }
     }
     loadMenuData()
+    console.log("routes:", routes)
   }, [token])
 
   if (routes) {

@@ -31,7 +31,6 @@ function AppBreadCrumb() {
   const location = useLocation();
   const { menuList } = useSelector((state: any) => state.authSlice)
   const breadCrumbPaths = findBreadCrumbPath(location.pathname, menuList).map((item) => ({ title: item }))
-  console.log(breadCrumbPaths)
   return (
     <Breadcrumb items={breadCrumbPaths} className="mt mb" />
   );

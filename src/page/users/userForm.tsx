@@ -1,31 +1,32 @@
-import { Modal, Row, Col, Form, Input ,Radio, message} from "antd"
+import { Modal, Row, Col, Form, Input, Radio, message } from "antd"
 import { useEffect } from "react";
-import { useSelector } from "react-redux"; 
+import { useSelector } from "react-redux";
 import { editUser } from "../../api/userList";
 interface FormProps {
     visible: boolean;
     hideModal: () => void;
     title: string;
-    loadData:()=>void
+    loadData: () => void
 }
 
 function UserForm(props: FormProps) {
-    const [form]=Form.useForm();
-    const {userData}= useSelector((state:any)=>state.userSlice)
-    const { visible, hideModal, title,loadData } = props
-    const handleOk=()=>{
-        form.validateFields().then(async (res)=>{
-            const {data}=await editUser(res);
+    const [form] = Form.useForm();
+    const { userData } = useSelector((state: any) => state.userSlice)
+    const { visible, hideModal, title, loadData } = props
+    const handleOk = () => {
+        form.validateFields().then(async (res) => {
+            const { data } = await editUser(res);
             message.success(data)
             hideModal();
             loadData()
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err)
         })
     }
-    useEffect(()=>{
-        title=="新增企业"? form.resetFields():form.setFieldsValue(userData)
-    },[visible])
+    // form.resetFields()的作用是重置表单字段初始值
+    useEffect(() => {
+        title == "新增企业" ? form.resetFields() : form.setFieldsValue(userData)
+    }, [visible])
     return <>
         <Modal
             title={title}
@@ -36,8 +37,8 @@ function UserForm(props: FormProps) {
         >
             <Form
                 form={form}
-                labelCol={{span:8}}
-                wrapperCol={{span:16}}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
             >
                 <Row gutter={16}>
                     <Col span={12}>
@@ -53,9 +54,9 @@ function UserForm(props: FormProps) {
                         <Form.Item
                             label="联系电话"
                             name="tel"
-                            rules={[{ required: true, message: "联系电话不能为空" },{pattern:/^1[3-9]\d{9}$/,message:"请输入有效的手机号"}]}
+                            rules={[{ required: true, message: "联系电话不能为空" }, { pattern: /^1[3-9]\d{9}$/, message: "请输入有效的手机号" }]}
                         >
-                            <Input/>
+                            <Input />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -79,7 +80,7 @@ function UserForm(props: FormProps) {
                             name="business"
                             rules={[{ required: true, message: "所属行业不能为空" }]}
                         >
-                            <Input/>
+                            <Input />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -90,7 +91,7 @@ function UserForm(props: FormProps) {
                             name="email"
                             rules={[{ required: true, message: "邮箱不能为空" }]}
                         >
-                            <Input/>
+                            <Input />
                         </Form.Item>
                     </Col>
                     <Col span={12}>
@@ -99,7 +100,7 @@ function UserForm(props: FormProps) {
                             name="creditCode"
                             rules={[{ required: true, message: "统一信用代码不能为空" }]}
                         >
-                            <Input/>
+                            <Input />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -110,7 +111,7 @@ function UserForm(props: FormProps) {
                             name="industryNum"
                             rules={[{ required: true, message: "工商注册号不能为空" }]}
                         >
-                            <Input/>
+                            <Input />
                         </Form.Item>
                     </Col>
                     <Col span={12}>
@@ -119,7 +120,7 @@ function UserForm(props: FormProps) {
                             name="organizationCode"
                             rules={[{ required: true, message: "组织机构代码不能为空" }]}
                         >
-                            <Input/>
+                            <Input />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -130,10 +131,10 @@ function UserForm(props: FormProps) {
                             name="legalPerson"
                             rules={[{ required: true, message: "法人名不能为空" }]}
                         >
-                            <Input/>
+                            <Input />
                         </Form.Item>
                     </Col>
-                    
+
                 </Row>
             </Form>
         </Modal>

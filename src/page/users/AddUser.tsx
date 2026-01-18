@@ -1,5 +1,5 @@
 function AddUser(){
-    return <div>我是新增租户</div>
+    return <div>This is the test Component</div>
 }
 
 export default AddUser
