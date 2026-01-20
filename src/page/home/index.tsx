@@ -24,7 +24,7 @@ function Home() {
           <AppHeader />
         </Header>
 
-        <Content style={{ margin: '0 16px', height: '90vh', overflowY: 'auto', overflowX: 'hidden' }}>
+        <Content style={{ margin: '0 16px',height:"90vh",overflowY:"auto",overflowX:"hidden" }}>
           <AppBreadCrumb />
           <Outlet />   {/* 路由出口，用于渲染子路由组件 */}
         </Content>
