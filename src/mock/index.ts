@@ -595,6 +595,7 @@ Mock.mock('https://www.demo.com/billList', 'post', (options: any) => {
     // 生成55条数据
   }
 });
+
 //账号管理
 Mock.mock('https://www.demo.com/accountList', 'post', (options: any) => {
 //  const {page,pageSize,companyName,contact,phone}=JSON.parse(options.body);
