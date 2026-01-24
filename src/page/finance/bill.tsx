@@ -3,7 +3,7 @@ import {DownloadOutlined,DeleteOutlined} from '@ant-design/icons';
 import { TableProps } from "antd";
 import { getBillList } from "../../api/contract";
 import { useEffect, useMemo, useState } from "react";
-import { exportToExcel } from "../../utils/exportToExcel";
+import { exportToExcel } from "../../util/exportToExcel";
 const {RangePicker}=DatePicker
 
 interface DataType{
