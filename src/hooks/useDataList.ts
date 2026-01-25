@@ -15,9 +15,11 @@ function useDataList<T extends MyFormData,U>(initialFormData:T,fetchData:DataFet
     const [loading, setLoading] = useState<boolean>(false);
     const [formData, setFormData] = useState<T>(initialFormData);
     const loadData=useCallback(async ()=>{
+        debugger
         setLoading(true);
         try{
             const {data:{list,total}}= await fetchData({page,pageSize,...formData});
+            console.log('list:',list)
             setDataList(list);
             setTotal(total)
         }catch(error){

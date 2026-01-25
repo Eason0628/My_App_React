@@ -8,8 +8,6 @@ const http = axios.create({
 
 //请求拦截器
 http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  debugger;
-  console.log(store.getState().authSlice)
   const { token } = store.getState().authSlice;
   if (token) {
     //Authorization专⻔⽤来携带认证信息
