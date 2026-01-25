@@ -9,6 +9,7 @@ import { getMenu } from "./api/users";
 import { setMenus } from './store/login/authSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
+import { Spin } from "antd";
 function App() {
   const [routes, setRoutes] = useState<any>(null);
   const dispatch = useDispatch();
@@ -36,14 +37,15 @@ function App() {
   if (routes) {
     return (
       // Suspense作用是当子组件是懒加载时，显示fallback中的内容，当子组件加载完成后，显示子组件
-      <Suspense fallback={<div>loading..</div>}>
+      <Suspense fallback={<Spin></Spin>}  >
         <RouterProvider router={routes} />
       </Suspense>
     );
   } else {
-    return <div>loading...</div>;
+    return  <Spin></Spin>;
   }
 
 }
 
 export default App;
+
