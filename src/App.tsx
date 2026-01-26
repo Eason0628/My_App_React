@@ -15,6 +15,8 @@ function App() {
   const dispatch = useDispatch();
  const { token } = useSelector((state: any) => state.authSlice);
   useEffect(() => {
+    console.log('API URL:', process.env.REACT_APP_API_URL);
+    
     async function loadMenuData() {
       const { data } = await getMenu();
       if (data.length) {
